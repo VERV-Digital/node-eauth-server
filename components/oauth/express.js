@@ -15,9 +15,11 @@ const oauth = require('./oauth')
 module.exports = function(app, api, User, ens) {
   // only private can get
   app.get('/oauth/user', authenticate(), async function(req, res) {
-    const ens_name = ens ? await ens.reverse(req.user.User.address) : null
+    // const ens_name = ens ? await ens.reverse(req.user.User.address) : null
+    //
+    // return ens_name ? res.json(Object.assign(req.user.User, {ens: ens_name})) : res.json(Object.assign(req.user.User, {sub: req.user.User.address, name: req.user.User.address, nickname: req.user.User.address}))
 
-    return ens_name ? res.json(Object.assign(req.user.User, {ens: ens_name})) : res.json(Object.assign(req.user.User, {sub: req.user.User.address, name: req.user.User.address, nickname: req.user.User.address}))
+    return res.json(Object.assign(req.user.User, {sub: req.user.User.address, name: req.user.User.address, nickname: req.user.User.address}))
   })
 
   app.all('/oauth/token', function(req, res, next) {
